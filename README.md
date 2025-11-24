@@ -5,8 +5,8 @@ This repository contains the code for my final project for **AIPI 590 – Explai
 
 The accompanying webapp allows users to upload or select images, run the emotion classifier, and view Grad-CAM heatmaps overlaid on the original faces.
 
-![georgeclooney1](images_for_webapp_demo/georgeclooney_results_1.png)
-![georgeclooney2](images_for_webapp_demo/georgeclooney_results_2.png)
+![kayla1](images_for_webapp_demo/kayla_results_1.png)
+![kayla2](images_for_webapp_demo/kayla_results_2.png)
 
 ---
 
