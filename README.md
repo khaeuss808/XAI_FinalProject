@@ -3,29 +3,23 @@
 
 This repository contains the code for my final project for **AIPI 590 – Explainable AI** with **Dr. Bent** at **Duke University**.
 
-The project explores how **Grad-CAM** can be used to visualize what a **ResNet50-based emotion recognition model** is actually looking at when making predictions, and how these explanations can support **trust, debugging, and fairness analysis** in high-stakes applications.
+The accompanying webapp allows users to upload or select images, run the emotion classifier, and view Grad-CAM heatmaps overlaid on the original faces.
 
 ---
 
 ## 🎯 Project Motivation
 
-Emotion recognition AI is increasingly deployed in **hiring, healthcare, education, and law enforcement**—domains where misclassification can have serious consequences. Despite this, most models are **black boxes**: they output labels like “angry” or “fearful” without any visibility into *why*.
+Project Goals: Emotion recognition AI is increasingly deployed in hiring, healthcare, education, and law enforcement—high-stakes domains where mistakes have serious consequences. Yet most models are "black boxes" that provide no explanation for their predictions. Even state-of-the-art systems like Meta's DeepFace achieve impressive accuracy, but their internal decision-making processes remain opaque. When a model predicts someone is "angry" or "fearful," we have no insight into whether it's focusing on relevant facial features.  
 
-Even state-of-the-art systems (e.g., Meta’s DeepFace) achieve high accuracy, but their internal decision making is opaque and often proprietary. When a model says someone is angry, did it focus on the eyebrows? The mouth? Background artifacts? We usually don’t know.
-
-This project aims to:
+This project uses Grad-CAM to visualize what a ResNet50 emotion classifier is actually looking at when making decisions. By revealing the model's reasoning process, we can:  
 
 - **Build trust through transparency**  
-  Use Grad-CAM to visualize where the model is “looking” on the face.
 
-- **Detect potential biases**  
-  See which features the model relies on and whether they make sense.
+- **Detect biases** by seeing what features the model relies on
 
-- **Debug misclassifications**  
-  Identify when predictions are driven by irrelevant regions (e.g., hair, background).
+- **Debug failures** by identifying when and why predictions go wrong
 
-- **Support fairness auditing**  
-  Provide a foundation for future work that examines performance across demographic groups.
+- **Ensure fairness** by auditing whether the model uses appropriate facial features
 
 The accompanying webapp allows users to upload or select images, run the emotion classifier, and view Grad-CAM heatmaps overlaid on the original faces.
 
