@@ -69,16 +69,14 @@ Models like **Meta’s DeepFace** may be more advanced, but their closed archite
 
 ## 📚 Dataset: RAF-DB (Real-world Affective Faces Database)
 
-This project uses the **Real-world Affective Faces Database (RAF-DB)**, a widely used dataset for facial expression recognition.
-
 **Dataset Characteristics**
 
-- Training set: **12,271 images**
-- Test set: **~3,000 images**
-- Image size: **100×100** pixels (face-cropped)
-- Source: **In-the-wild** internet images (varied lighting, pose, occlusions)
+- Training set: 12,271 images
+- Test set: ~3,000 images
+- Image size: 100×100 pixels (face-cropped)
+- Source: In-the-wild internet images (varied lighting, pose, occlusions)
 
-**Emotion Categories (7-class setup)**
+**Emotion Categories (7)**
 
 1. 😊 Happy  
 2. 😢 Sad  
@@ -88,15 +86,11 @@ This project uses the **Real-world Affective Faces Database (RAF-DB)**, a widely
 6. 🤢 Disgusted  
 7. 😐 Neutral  
 
-**Why RAF-DB?**
+**Why This Dataset Was Selected:**
 
-- Each image is labeled by **~40 independent annotators**, providing more reliable emotion labels via crowdsourcing.
-- Captures **real-world variability**:
-  - Different lighting conditions
-  - Occlusions (glasses, hair, hands)
-  - Variation in pose and expression intensity
-- Contains a **diverse range** of gender, age, and race.
-- Images are **in color**, which is valuable for potential future experiments on **skin tone and bias**.
+- Each image labeled by ~40 independent annotators, so crowdsourced emotion labeling ensures a level of reliability.
+- Captures real-world expression variability: lighting, poses, obstructions (glasses, hair, hands), wide range of gender, ages and races.
+- Images are in color which I thought would be necessary for future steps of the project where I might explore skin tone biases.
 
 **Citation**
 
@@ -153,8 +147,6 @@ Originally, I had intended the focus of this project to be on the differences in
 
 ## 🚀 Getting Started
 
-> ⚠️ Note: Update this section to match your actual file names / entry points if they differ.
-
 ### Prerequisites
 
 - Python 3.8+  
@@ -165,10 +157,10 @@ Originally, I had intended the focus of this project to be on the differences in
 
 ```bash
 # Clone the repository
-git clone https://github.com/<your-username>/<your-repo-name>.git
-cd <your-repo-name>
+git clone https://github.com/khaeuss808/XAI_FinalProject.git
+cd XAI_FinalProject
 
-# Create and activate a virtual environment (recommended)
+# Create and activate a virtual environment
 python -m venv .venv
 source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 
