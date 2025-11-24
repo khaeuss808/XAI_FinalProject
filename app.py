@@ -226,7 +226,7 @@ def show_home_page(model, target_layer, emotion_names):
 
     st.markdown(
         """
-    This interactive app demonstrates how **Grad-CAM** reveals which facial features a ResNet50 model uses to predict emotions.
+    This interactive app demonstrates how **Grad-CAM** reveals which facial features a ResNet50 model uses to predict emotions. Do models interpret human expressions the way we do?
     """
     )
     # Emotion buttons right under subtitle

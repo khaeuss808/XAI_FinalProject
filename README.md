@@ -24,7 +24,7 @@ This project uses Grad-CAM to visualize what a ResNet50 emotion classifier is ac
 
 - **Ensure fairness** by auditing whether the model uses appropriate facial features
 
-The accompanying webapp allows users to upload or select images, run the emotion classifier, and view Grad-CAM heatmaps overlaid on the original faces.
+Do models interpret human expressions the way we do?
 
 ---
 
