@@ -135,48 +135,19 @@ These results highlight that the model is quite strong on more prototypical expr
 This project uses **Grad-CAM (Gradient-weighted Class Activation Mapping)** to make the ResNet50 classifier more interpretable.
 
 **What is Grad-CAM?**
-
-Grad-CAM is a technique that:
-
-1. Computes the **gradients** of a target class score with respect to the feature maps of a convolutional layer.
-2. Uses these gradients to compute **importance weights** for each feature map.
-3. Produces a **class activation heatmap** showing which image regions contributed most to the prediction.
-4. Overlays the heatmap on the original image so we can see what the model focused on.
+Grad-CAM is a visualization technique that highlights which regions of an image were important for a model's prediction. It was one of my favorite techniques we learned this semester, and I knew I wanted to incorporate it into my final project.
 
 **Why Grad-CAM for Emotion Recognition?**
 
-- Reveals which **facial features** drive decisions (e.g., eyes, eyebrows, mouth).
-- Helps diagnose model failures when attention is **diffuse or misplaced**.
-- Validates that the model is using **human-interpretable cues**, not spurious background artifacts.
-- Provides a visual way to **build trust** with stakeholders by turning a “black box” into something more transparent.
-
-Grad-CAM was one of my favorite techniques from the course, so this project centers on using it to bridge the gap between model performance and *model understanding*.
+- Reveals which facial features drive predictions (eyes, mouth, eyebrows)
+- Can clearly diagnose diagnose model failures (scattered attention = uncertainty)
+- Validates that model uses human-interpretable features
+- Builds trust by making "black box" decisions transparent
 
 ---
 
 ## 🧭 Future Work: Fairness & Demographic Analysis
-
-Originally, I intended for the primary focus of this project to be on **differences in model accuracy across demographic groups** (race, gender, age), inspired in part by **Joy Buolamwini’s _Unmasking AI_**.
-
-However, I ran into a key challenge:
-
-- Many **emotion recognition datasets** (e.g., **FER-2013**, **RAF-DB**) lack detailed **demographic annotations**.
-- Datasets with strong **demographic labels** (e.g., **UTKFace**, **FairFace**) often lack **emotion labels**.
-
-I considered manually labeling demographics (e.g., race, gender) for RAF-DB, but decided against it because:
-
-- These attributes are frequently **ambiguous** from appearance alone.
-- Manual labeling could **inject my own implicit biases** into the dataset.
-- Any fairness analysis built on those labels would inherit those limitations.
-
-**Future directions for this project:**
-
-- Obtain or build a dataset that includes **both reliable demographic annotations and emotion labels**.
-- Use that dataset to:
-  - Quantify performance disparities across groups
-  - Combine **Grad-CAM** with fairness metrics to examine *what* the model focuses on for different demographics
-  - Explore **debiasing strategies** and retraining with fairness constraints
-
+Originally, I had intended the focus of this project to be on the differences in accuracy of emotion detection models across different demographic groups (racial, gender, age), inspired in part by my reading of "Unmasking AI" by Joy Buolamwini this semester. However, as I dove deeper into this project, I encountered challenges in finding datasets with the kind of demographic annotations needed to perform the analysis I was interested in. Many popular emotion recognition datasets I considered lack detailed demographic information (FER-2013, RAF-DB), or the demographic datasets I found lacked emotion labeling (UTKFace, FairFace). While completing this project, I considered doing the manual labeling of demographics on the RAF-DB dataset, but I thought this would be innaccurate as race and gender was often hard for me to discern and could lead to me injecting my own implicit biases into the labeling. In the future, expanding this project will require accessing or building a dataset with reliable demographic annotations, enabling a more rigorous investigation into model performance disparities.
 ---
 
 ## 🚀 Getting Started
