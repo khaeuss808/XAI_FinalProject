@@ -531,13 +531,13 @@ def show_about_page():
     This webapp was developed as a final project for AIPI590, Explainable AI, with Dr. Bent, at Duke University.
     
     **Project Goals:**
-    Emotion recognition AI is increasingly deployed in hiring, healthcare, education, and law enforcement—high-stakes domains where mistakes have serious consequences. Yet most models are "black boxes" that provide no explanation for their predictions. Even state-of-the-art systems like Meta's DeepFace achieve impressive accuracy, but their internal decision-making processes remain opaque. When a model predicts someone is "angry" or "fearful," we have no insight into whether it's focusing on relevant facial features.
+    Emotion recognition AI is increasingly deployed in hiring, healthcare, education, and law enforcement. When these models are high-stakes domains where mistakes have serious consequences, explainability of decision making and alignment with human interpretation is imperative. Yet most models are "black boxes" that provide no explanation for their predictions. Even state-of-the-art systems like Meta's DeepFace achieve impressive accuracy, but their internal decision-making processes remain opaque. When a model predicts someone is "angry" or "fearful," we have no insight into whether it's focusing on relevant facial features.
 
     This project uses **Grad-CAM** to visualize what a ResNet50 emotion classifier is actually looking at when making decisions. By revealing the model's reasoning process, we can:
     - **Build trust** through transparency
     - **Detect biases** by seeing what features the model relies on
     - **Debug failures** by identifying when and why predictions go wrong
-    - **Ensure fairness** by auditing whether the model uses appropriate facial features
+    - **Ensure alignment** by auditing whether the model uses appropriate facial features
     
     **Future Work:**
     Originally, I had intended the focus of this project to be on the differences in accuracy of emotion detection models across different demographic groups (racial, gender, age), inspired in part by my reading of "Unmasking AI" by Joy Buolamwini this semester. However, as I dove deeper into this project, I encountered challenges in finding datasets with the kind of demographic annotations needed to perform the analysis I was interested in. Many popular emotion recognition datasets I considered lack detailed demographic information (FER-2013, RAF-DB), or the demographic datasets I found lacked emotion labeling (UTKFace, FairFace). While completing this project, I considered doing the manual labeling of demographics on the RAF-DB dataset, but I thought this would be innaccurate as race and gender was often hard for me to discern and could lead to me injecting my own implicit biases into the labeling. In the future, expanding this project will require accessing or building a dataset with reliable demographic annotations, enabling a more rigorous investigation into model performance disparities.

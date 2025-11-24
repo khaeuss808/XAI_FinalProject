@@ -12,7 +12,7 @@ The accompanying webapp allows users to upload or select images, run the emotion
 
 ## 🎯 Project Motivation
 
-Project Goals: Emotion recognition AI is increasingly deployed in hiring, healthcare, education, and law enforcement—high-stakes domains where mistakes have serious consequences. Yet most models are "black boxes" that provide no explanation for their predictions. Even state-of-the-art systems like Meta's DeepFace achieve impressive accuracy, but their internal decision-making processes remain opaque. When a model predicts someone is "angry" or "fearful," we have no insight into whether it's focusing on relevant facial features.  
+Project Goals: Emotion recognition AI is increasingly deployed in hiring, healthcare, education, and law enforcement. When these models are high-stakes domains where mistakes have serious consequences, explainability of decision making and alignment with human interpretation is imperative. Yet most models are "black boxes" that provide no explanation for their predictions. Even state-of-the-art systems like Meta's DeepFace achieve impressive accuracy, but their internal decision-making processes remain opaque. When a model predicts someone is "angry" or "fearful," we have no insight into whether it's focusing on relevant facial features.  
 
 This project uses Grad-CAM to visualize what a ResNet50 emotion classifier is actually looking at when making decisions. By revealing the model's reasoning process, we can:  
 
@@ -22,7 +22,7 @@ This project uses Grad-CAM to visualize what a ResNet50 emotion classifier is ac
 
 - **Debug failures** by identifying when and why predictions go wrong
 
-- **Ensure fairness** by auditing whether the model uses appropriate facial features
+- **Ensure alignment** by auditing whether the model uses appropriate facial features
 
 Do models interpret human expressions the way we do?
 
