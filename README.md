@@ -37,31 +37,29 @@ The core model is a **ResNet50** classifier fine-tuned for facial emotion recogn
 
 **Base Architecture**
 
-- Backbone: **ResNet50 (50 layers deep)**
-- Pre-trained on **ImageNet** (~1.2M images)
-- ~**23.5M parameters**
+- Backbone: ResNet50 (50 layers deep)
+- Pre-trained on ImageNet (~1.2M images)
+- ~23.5M parameters
 
 **Modifications**
 
 - Replaced the final classification layer
-- **7 output classes** (one per emotion)
-- Fine-tuned on the **RAF-DB** dataset
+- 7 output classes (emotions)
+- Fine-tuned on the RAF-DB dataset
 
 **Training Details**
 
-- Optimizer: **Adam**
-- Learning rate: **0.0001** (reduced for fine-tuning)
-- Epochs: **30**
-- Batch size: **32**
-- Input size: **256×256** (upscaled from 100×100)
+- Optimizer: Adam
+- Learning rate: 0.0001 (reduced for fine-tuning)
+- Epochs: 15
+- Batch size: 32
+- Input size: 256×256 (upscaled from 100×100)
 
 **Why ResNet50?**
 
-- Depth allows the model to capture **subtle facial features**.
-- **Transfer learning** from ImageNet provides strong, general-purpose feature extraction.
-- I experimented with other architectures, including a custom CNN, but:
-  - The custom CNN struggled to learn meaningful features (e.g., eyes, nose) efficiently.
-  - ResNet50 consistently produced stronger performance with less training time.
+- Deep architecture captures subtle facial features
+- Transfer learning from ImageNet provides strong feature extraction
+I experimented with other models, including developing my own CNN from scratch, but found ResNet50 yielded the strongest performance as it already had robust feature extraction capabilities for things like eyes and noses, whereas my CNN struggled and took much longer to learn these features meaningfully. Models like Meta's DeepFace are state of the art in this space, but its architecture is not publicly available, making applying easily interpretable methods like GradCAM difficult.
 
 Models like **Meta’s DeepFace** may be more advanced, but their closed architectures make them harder to interpret using methods like Grad-CAM. ResNet50 strikes a good balance between performance and interpretability.
 
@@ -125,8 +123,6 @@ These results highlight that the model is quite strong on more prototypical expr
 ---
 
 ## 🔍 Explainability: Grad-CAM
-
-This project uses **Grad-CAM (Gradient-weighted Class Activation Mapping)** to make the ResNet50 classifier more interpretable.
 
 **What is Grad-CAM?**
 Grad-CAM is a visualization technique that highlights which regions of an image were important for a model's prediction. It was one of my favorite techniques we learned this semester, and I knew I wanted to incorporate it into my final project.

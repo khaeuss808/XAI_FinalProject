@@ -568,7 +568,7 @@ def show_about_page():
         **Training Details:**
         - Optimizer: Adam
         - Learning Rate: 0.0001 (reduced for fine-tuning)
-        - Epochs: 30
+        - Epochs: 15
         - Batch Size: 32
         - Input Size: 256×256 (upscaled from 100×100)
         
