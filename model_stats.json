@@ -1,0 +1,20 @@
+{
+  "overall_accuracy": 82.04041720990874,
+  "per_emotion": {
+    "happy": 92.74261603375528,
+    "sad": 83.47280334728033,
+    "surprised": 82.97872340425532,
+    "angry": 74.69135802469135,
+    "neutral": 70.1470588235294,
+    "disgusted": 66.875,
+    "fearful": 55.4054054054054
+  },
+  "best_emotions": [
+    "happy",
+    "sad"
+  ],
+  "worst_emotions": [
+    "disgusted",
+    "fearful"
+  ]
+}

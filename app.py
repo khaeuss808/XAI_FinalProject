@@ -1,3 +1,4 @@
+# Claude Sonnet 4.5 was queried on 11/23/2025 to generate this code. I started with a basic Stremlit app and then iterated to add more features. Commentary and text sections were written by me.
 import streamlit as st
 import torch
 import torch.nn as nn
@@ -109,11 +110,10 @@ EMOTION_INSIGHTS = {
         sometimes the cheeks (where smile lines form).
         
         **Key observations:**
-        - ✓ Primary focus: Mouth and smile
-        - ✓ Secondary focus: Eyes (crinkles indicating genuine smile)
-        - ✓ High confidence when both mouth and eye regions show happiness
+        - Primary focus: Mouth and smile
+        - Secondary focus: Eyes (possibly looking for eye crinkles indicating smile)
         
-        This aligns with how humans recognize happiness - we naturally look at smiles!
+        This aligns with how humans recognize happiness, we look at smiles! I think its nice that the model recognizes smile lines as well.
         """,
     },
     "sad": {
@@ -124,26 +124,26 @@ EMOTION_INSIGHTS = {
         and **eyes** (drooping or tearful). The heatmaps often show activation on both regions simultaneously.
         
         **Key observations:**
-        - ✓ Dual focus: Downturned mouth corners + drooping eyes
-        - ✓ Sometimes focuses on eyebrows (furrowed in sadness)
-        - ✓ More diffuse attention than happiness (sadness is subtle)
+        - Dual focus: Downturned mouth corners + drooping eyes
+        - Sometimes focuses on eyebrows (furrowed in sadness)
+        - More diffuse attention than happiness
         
-        Sadness is one of the harder emotions to detect due to its subtlety.
+        Sadness is one of the harder emotions to detect due to its subtlety. How we express sadness also varies as we grow older, with babies and children often crying more visibly than adults.
         """,
     },
     "angry": {
         "title": "😠 Angry",
         "color": "#DC143C",
         "description": """
-        The model detects **anger** primarily through the **eyebrows and eye region**. 
+        The model detects **anger** primarily through the **eyebrows and eye region, and scrunched noses**. 
         Furrowed brows and intense eye expressions create strong activation patterns.
         
         **Key observations:**
-        - ✓ Primary focus: Furrowed eyebrows and eyes
-        - ✓ Secondary focus: Tense mouth/jaw
-        - ✓ Strong, concentrated heatmap on upper face
+        - Primary focus: Furrowed eyebrows and eyes
+        - Secondary focus: Tense mouth/jaw or open mouth
+        - Strong, concentrated heatmap on upper face
         
-        The model learned that anger manifests most clearly in the eye region - matching human perception.
+        The model learned that anger manifests most clearly in the eyebrow area.
         """,
     },
     "surprised": {
@@ -154,11 +154,11 @@ EMOTION_INSIGHTS = {
         **wide-open eyes** and **raised eyebrows**. The mouth (often open in surprise) receives secondary attention.
         
         **Key observations:**
-        - ✓ Very strong focus: Wide eyes and raised eyebrows
-        - ✓ Secondary focus: Open mouth (O-shape)
-        - ✓ Most consistent attention pattern across examples
+        - Very strong focus: Wide eyes and raised eyebrows
+        - Secondary focus: Open mouth (O-shape)
+        - Most consistent attention pattern across examples
         
-        This is one of the easiest emotions for the model to detect due to distinctive facial features.
+        This is one of the easiest emotions for the model to detect due to distinctive facial features of wide eyes and an open mouth.
         """,
     },
     "fearful": {
@@ -169,9 +169,9 @@ EMOTION_INSIGHTS = {
         the mouth and overall face. The model looks at both **eyes** and **mouth** simultaneously.
         
         **Key observations:**
-        - ✓ Wide eyes (similar to surprise)
-        - ✓ Tense mouth and jaw
-        - ✓ Sometimes confused with surprise due to similar eye patterns
+        - Wide eyes (similar to surprise)
+        - Tense mouth and jaw
+        - Sometimes confused with surprise due to similar eye patterns
         
         Fear and surprise share facial features, making them harder to distinguish.
         """,
@@ -184,11 +184,11 @@ EMOTION_INSIGHTS = {
         the wrinkled nose and raised upper lip are distinctive features.
         
         **Key observations:**
-        - ✓ Primary focus: Nose wrinkle and upper lip
-        - ✓ Secondary focus: Narrowed eyes
-        - ✓ Concentrated attention on mid-face region
+        - Primary focus: Nose wrinkle and upper lip
+        - Secondary focus: Narrowed eyes
+        - Concentrated attention on mid-face region
         
-        Disgust has a unique facial signature that the model learned to recognize.
+        Disgust has a unique facial signature of a scrunched nose that the model learned to recognize.
         """,
     },
     "neutral": {
@@ -199,11 +199,11 @@ EMOTION_INSIGHTS = {
         The model looks across the entire face without strong focus on any particular region.
         
         **Key observations:**
-        - ✓ Diffuse, spread-out attention pattern
-        - ✓ No strong activation on any single feature
-        - ✓ Lower confidence than other emotions
+        - Diffuse, spread-out attention pattern
+        - No strong activation on any single feature
+        - Lower confidence than other emotions
         
-        Neutral is challenging because it's defined by the *absence* of emotional features rather than presence.
+        Neutral is difficult because it's defined by the *absence* of emotional features rather than presence, so we would expect not incredibly strong focus in the model.
         """,
     },
 }
@@ -216,14 +216,19 @@ EMOTION_INSIGHTS = {
 def show_home_page(model, target_layer, emotion_names):
     """Main homepage with emotion buttons and upload"""
 
-    st.title("🔍 Explaining Facial Emotion Recognition with Grad-CAM")
+    st.title("🔍 Explaining Facial Emotion Recognition with Grad-CAM 🔍")
+
+    # About Model button right under title
+
+    if st.button("Project Details", use_container_width=True, type="secondary"):
+        st.session_state.page = "about"
+        st.rerun()
+
     st.markdown(
         """
-    This interactive app demonstrates how **Grad-CAM** (Gradient-weighted Class Activation Mapping) 
-    reveals which facial features a ResNet50 model uses to predict emotions.
+    This interactive app demonstrates how **Grad-CAM** reveals which facial features a ResNet50 model uses to predict emotions.
     """
     )
-
     # Emotion buttons right under subtitle
     st.markdown("**Explore model behavior by emotion:**")
 
@@ -231,12 +236,12 @@ def show_home_page(model, target_layer, emotion_names):
     col1, col2, col3, col4 = st.columns(4)
 
     with col1:
-        if st.button("😊 Happy", use_container_width=True):
+        if st.button("😊\nHappy", use_container_width=True):
             st.session_state.page = "happy"
             st.rerun()
 
     with col2:
-        if st.button("😢 Sad", use_container_width=True):
+        if st.button("😢\nSad", use_container_width=True):
             st.session_state.page = "sad"
             st.rerun()
 
@@ -268,7 +273,8 @@ def show_home_page(model, target_layer, emotion_names):
             st.session_state.page = "neutral"
             st.rerun()
 
-    # Continue with original layout
+    st.markdown("---")
+
     st.markdown(
         """
     **Upload a face image** to see:
@@ -292,21 +298,12 @@ def show_home_page(model, target_layer, emotion_names):
         if uploaded_file is not None:
             image = Image.open(uploaded_file).convert("RGB")
 
-            # Add cropping instructions
             st.info(
-                "💡 **Tip:** Crop the image to focus on the face for better results!"
+                "💡 **Tip:** For best results, crop your image to focus on the face before uploading!"
             )
+            st.image(image, caption="Uploaded Image", use_container_width=True)
 
-            # Use Streamlit's image editor with crop tool
-            edited_image = st.image_editor(
-                image, width=400, crop_shape="rect", key="image_editor"
-            )
-
-            # Convert edited image back to PIL Image if it was cropped
-            if edited_image is not None:
-                display_image = Image.fromarray(edited_image)
-            else:
-                display_image = image
+            display_image = image
 
             # Generate button
             if st.button(
@@ -410,14 +407,8 @@ def show_home_page(model, target_layer, emotion_names):
             
             **Key observations:**
             - The red/yellow regions show where the model "looked" to make this decision
-            - For emotions like **happy**, the model typically focuses on the mouth (smile)
-            - For emotions like **surprised**, the model focuses on the eyes (wide open)
+            - The blue areas show where the model paid little attention
             - Scattered attention (no clear focus) often indicates low confidence or potential misclassification
-            
-            **Why this matters for XAI:**
-            - Reveals whether the model uses sensible features (like humans do)
-            - Helps identify when the model might be wrong (scattered attention)
-            - Builds trust by showing the reasoning process
             """
             )
 
@@ -523,6 +514,193 @@ def show_emotion_page(emotion_name, model, target_layer, emotion_names):
         st.markdown("---")
 
 
+def show_about_page():
+    """About Model & Dataset page"""
+
+    # Back button
+    if st.button("← Back to Home"):
+        st.session_state.page = "home"
+        st.rerun()
+
+    # Project info
+    st.markdown("---")
+    st.title("ℹ️ About This Project")
+
+    st.markdown(
+        """
+    This webapp was developed as a final project for AIPI590, Explainable AI, with Dr. Bent, at Duke University.
+    
+    **Project Goals:**
+    Emotion recognition AI is increasingly deployed in hiring, healthcare, education, and law enforcement—high-stakes domains where mistakes have serious consequences. Yet most models are "black boxes" that provide no explanation for their predictions. Even state-of-the-art systems like Meta's DeepFace achieve impressive accuracy, but their internal decision-making processes remain opaque. When a model predicts someone is "angry" or "fearful," we have no insight into whether it's focusing on relevant facial features.
+
+    This project uses **Grad-CAM** to visualize what a ResNet50 emotion classifier is actually looking at when making decisions. By revealing the model's reasoning process, we can:
+    - **Build trust** through transparency
+    - **Detect biases** by seeing what features the model relies on
+    - **Debug failures** by identifying when and why predictions go wrong
+    - **Ensure fairness** by auditing whether the model uses appropriate facial features
+    
+    **Future Work:**
+    Originally, I had intended the focus of this project to be on the differences in accuracy of emotion detection models across different demographic groups (racial, gender, age), inspired in part by my reading of "Unmasking AI" by Joy Buolamwini this semester. However, as I dove deeper into this project, I encountered challenges in finding datasets with the kind of demographic annotations needed to perform the analysis I was interested in. Many popular emotion recognition datasets I considered lack detailed demographic information (FER-2013, RAF-DB), or the demographic datasets I found lacked emotion labeling (UTKFace, FairFace). While completing this project, I considered doing the manual labeling of demographics on the RAF-DB dataset, but I thought this would be innaccurate as race and gender was often hard for me to discern and could lead to me injecting my own implicit biases into the labeling. In the future, expanding this project will require accessing or building a dataset with reliable demographic annotations, enabling a more rigorous investigation into model performance disparities.
+    """
+    )
+    st.markdown("---")
+    st.title("📊 Model & Dataset Information")
+
+    # Two column layout
+    col1, col2 = st.columns([1, 1])
+
+    with col1:
+        st.header("🏛️ Model Architecture")
+        st.markdown(
+            """
+        ### ResNet50 with Transfer Learning
+        
+        **Base Architecture:**
+        - ResNet50 (50 layers deep)
+        - Pre-trained on ImageNet (1.2M images)
+        - 23.5 million parameters
+        
+        **Modifications:**
+        - Replaced final classification layer
+        - 7 output classes (emotions)
+        - Fine-tuned on RAF-DB dataset
+        
+        **Training Details:**
+        - Optimizer: Adam
+        - Learning Rate: 0.0001 (reduced for fine-tuning)
+        - Epochs: 30
+        - Batch Size: 32
+        - Input Size: 256×256 (upscaled from 100×100)
+        
+        **Why ResNet50?**
+        - Deep architecture captures subtle facial features
+        - Transfer learning from ImageNet provides strong feature extraction
+        - I experimented with other models, including developing my own CNN from scratch, but found ResNet50 yielded the strongest performance as it already had robust feature extraction capabilities for things like eyes and noses, whereas my CNN struggled and took much longer to learn these features meaningfully. Models like Meta's DeepFace are state of the art in this space, but its architecture is not publicly available, making applying easily interpretable methods like GradCAM difficult.
+        """
+        )
+
+    with col2:
+        st.header("📚 Dataset: RAF-DB")
+        st.markdown(
+            """
+        ### Real-world Affective Faces Database
+        
+        **Dataset Characteristics:**
+        - **Training Set:** 12,271 images
+        - **Test Set:** ~3,000 images
+        - **Image Size:** 100×100 pixels (cropped to faces)
+        - **Source:** In-the-wild images from internet
+        
+        **Emotion Categories (7):**
+        1. 😊 Happy
+        2. 😢 Sad
+        3. 😠 Angry
+        4. 😮 Surprised
+        5. 😨 Fearful
+        6. 🤢 Disgusted
+        7. 😐 Neutral
+        
+        **Why This Dataset Was Selected:**
+        - Each image labeled by ~40 independent annotators, so crowdsourced emotion labeling ensures a level of reliability.
+        - Captures real-world expression variability: lighting, poses, obstructions (glasses, hair, hands), wide range of gender, ages and races.
+        - Images are in color which I thought would be necessary for future steps of the project where I might explore skin tone biases.
+        
+        **Citation:**
+        Li, S., Deng, W. (2019). *Reliable Crowdsourcing and Deep Locality-Preserving Learning for Unconstrained Facial Expression Recognition.* IEEE Transactions on Image Processing.
+        """
+        )
+
+    # Performance section
+    st.markdown("---")
+    st.header("📈 Model Performance")
+
+    # Check if stats file exists
+    import json
+
+    if os.path.exists("model_stats.json"):
+        with open("model_stats.json", "r") as f:
+            stats = json.load(f)
+
+        col1, col2, col3 = st.columns(3)
+
+        with col1:
+            st.metric(
+                "Overall Test Accuracy",
+                f"{stats['overall_accuracy']:.1f}%",
+                help="Accuracy on unseen test set",
+            )
+
+        with col2:
+            best = stats["best_emotions"]
+            st.metric(
+                "Best Performance",
+                f"{best[0].capitalize()}",
+                f"{stats['per_emotion'][best[0]]:.1f}%",
+            )
+
+        with col3:
+            worst = stats["worst_emotions"]
+            st.metric(
+                "Most Challenging",
+                f"{worst[0].capitalize()}",
+                f"{stats['per_emotion'][worst[0]]:.1f}%",
+            )
+
+        # Per-emotion breakdown
+        st.subheader("Performance by Emotion")
+
+        # Sort emotions by accuracy
+        sorted_emotions = sorted(
+            stats["per_emotion"].items(), key=lambda x: x[1], reverse=True
+        )
+
+        for emotion, accuracy in sorted_emotions:
+            # Color code based on accuracy
+            if accuracy > 80:
+                color = "🟢"
+            elif accuracy > 60:
+                color = "🟡"
+            else:
+                color = "🔴"
+
+            st.progress(
+                accuracy / 100, text=f"{color} {emotion.capitalize()}: {accuracy:.1f}%"
+            )
+    else:
+        st.info(
+            """
+        📊 Performance statistics not yet generated.
+        
+        Run the evaluation script in your notebook to generate `model_stats.json`,
+        then restart the app to see detailed performance metrics.
+        """
+        )
+
+    # XAI Technique
+    st.markdown("---")
+    st.header("🔍 Explainability: Grad-CAM")
+
+    st.markdown(
+        """
+    ### Gradient-weighted Class Activation Mapping
+    
+    **What is Grad-CAM?**
+    
+    Grad-CAM is a visualization technique that highlights which regions of an image 
+    were important for a model's prediction. It was one of my favorite techniques we learned this semester, and I knew I wanted to incorporate it into my final project. 
+    
+    **Why Use Grad-CAM for Emotion Recognition?**
+    
+    - Reveals which facial features drive predictions (eyes, mouth, eyebrows)
+    - Can clearly diagnose diagnose model failures (scattered attention = uncertainty)
+    - Validates that model uses human-interpretable features
+    - Builds trust by making "black box" decisions transparent
+    
+
+    """
+    )
+
+
 # ============================================================================
 # MAIN APP
 # ============================================================================
@@ -578,23 +756,10 @@ def main():
     # Route to appropriate page
     if st.session_state.page == "home":
         show_home_page(model, target_layer, emotion_names)
+    elif st.session_state.page == "about":
+        show_about_page()
     elif st.session_state.page in emotion_names:
         show_emotion_page(st.session_state.page, model, target_layer, emotion_names)
-
-    # Footer
-    st.sidebar.markdown("---")
-    st.sidebar.markdown(
-        """
-    ### 📚 About
-    **Explainable AI for Emotion Recognition**
-    
-    - Model: ResNet50 with transfer learning
-    - Dataset: RAF-DB
-    - Technique: Grad-CAM
-    
-    Created for AIPI590 Explainable AI.
-    """
-    )
 
 
 if __name__ == "__main__":
