@@ -1,16 +1,15 @@
-# core
-numpy==2.1.2
-pandas==2.3.3
+torch>=2.5.0
+torchvision>=0.20.0
 
-# PyTorch
-torch==2.9.1
-torchvision==0.24.1
-
-# Grad-CAM + image handling
+# Grad-CAM dependencies
 grad-cam==1.5.5
-pillow==11.3.0
-opencv-python==4.12.0.88
-matplotlib>=3.7.2
+opencv-python-headless==4.9.0.80
 
-# Streamlit
-streamlit==1.51.0
+# utilities
+Pillow>=10.0.0
+matplotlib>=3.7.2
+numpy>=1.24.3
+pandas>=2.0.0
+
+# streamlit
+streamlit>=1.51.0
