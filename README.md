@@ -55,8 +55,6 @@ The core model is a **ResNet50** classifier fine-tuned for facial emotion recogn
 - Transfer learning from ImageNet provides strong feature extraction
 I experimented with other models, including developing my own CNN from scratch, but found ResNet50 yielded the strongest performance as it already had robust feature extraction capabilities for things like eyes and noses, whereas my CNN struggled and took much longer to learn these features meaningfully. Models like Meta's DeepFace are state of the art in this space, but its architecture is not publicly available, making applying easily interpretable methods like GradCAM difficult.
 
-Models like **Meta’s DeepFace** may be more advanced, but their closed architectures make them harder to interpret using methods like Grad-CAM. ResNet50 strikes a good balance between performance and interpretability.
-
 ---
 
 ## 📚 Dataset: RAF-DB (Real-world Affective Faces Database)
@@ -112,7 +110,7 @@ Models like **Meta’s DeepFace** may be more advanced, but their closed archite
 - 🟡 **Disgusted:** 66.9%  
 - 🔴 **Fearful:** 55.4%  
 
-These results highlight that the model is quite strong on more prototypical expressions (e.g., happiness) and struggles more with subtle or easily confused emotions like fear or disgust—making explainability particularly important when interpreting predictions.
+These results highlight that the model is quite strong on more prototypical expressions, like happiness, and struggles more with subtle or easily confused emotions like fear or disgust, further showing how explainability is particularly important when interpreting model predictions.
 
 ---
 
