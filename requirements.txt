@@ -1,15 +1,8 @@
 torch>=2.5.0
 torchvision>=0.20.0
-
-# Grad-CAM dependencies
-grad-cam==1.5.5
-opencv-python-headless==4.9.0.80
-
-# utilities
+grad-cam
+opencv-python-headless
 Pillow>=10.0.0
 matplotlib>=3.7.2
 numpy>=1.24.3
-pandas>=2.0.0
-
-# streamlit
 streamlit>=1.51.0
